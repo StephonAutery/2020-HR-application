@@ -21,7 +21,11 @@
  ## GitHub repository 
  [2020-HR-application_on_GitHub](https://github.com/StephonAutery/2020-HR-application) 
  ## contributors 
- Stephon Autery 
+ [Stephon Autery -on- GitHub](https://github.com/StephonAutery)
+
+ [The OctoCat -on- GitHub](https://gist.github.com/octocat)
+
+
  ## testing 
  several, varied. will advise. 
  
