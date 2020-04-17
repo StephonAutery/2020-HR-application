@@ -75,14 +75,14 @@ function getEmployee() {
               getEmployee();
             } else {
               var employeeJSON = JSON.stringify(employeeArray);
-              var employeeHTML = render(employeeArray);
+              var employeeHTML = render(employeeJSON);
               console.log(" -------------- ");
               console.log(employeeJSON);
               console.log(" -------------- ");
               console.log(employeeHTML);
               console.log(" -------------- ");
 
-              fs.writeFile('./output/team.html', employeeHTML, (err) => {
+              fs.writeFile('./output/team.html', employeeHTML, 'utf8', (err) => {
                 if (err) throw err;
                 console.log('The file has been saved!');
               });
@@ -116,14 +116,14 @@ function getEmployee() {
               getEmployee();
             } else {
               var employeeJSON = JSON.stringify(employeeArray);
-              var employeeHTML = render(employeeArray);
+              var employeeHTML = render(employeeJSON);
               console.log(" -------------- ");
               console.log(employeeJSON);
               console.log(" -------------- ");
               console.log(employeeHTML);
               console.log(" -------------- ");
 
-              fs.writeFile('./output/team.html', employeeHTML, (err) => {
+              fs.writeFile('./output/team.html', employeeHTML, 'utf8', (err) => {
                 if (err) throw err;
                 console.log('The file has been saved!');
               });
@@ -157,14 +157,14 @@ function getEmployee() {
               getEmployee();
             } else {
               var employeeJSON = JSON.stringify(employeeArray);
-              var employeeHTML = render(employeeArray);
+              var employeeHTML = render(employeeJSON);
               console.log(" -------------- ");
               console.log(employeeJSON);
               console.log(" -------------- ");
               console.log(employeeHTML);
               console.log(" -------------- ");
 
-              fs.writeFile('./output/team.html', employeeHTML, (err) => {
+              fs.writeFile('./output/team.html', employeeHTML, 'utf8', (err) => {
                 if (err) throw err;
                 console.log('The file has been saved!');
               });
