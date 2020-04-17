@@ -48,7 +48,7 @@ function getEmployee() {
     ])
     .then(function (response) {
 
-      this.role = response.role
+      // this.role = response.role
 
       function getManager() {
         inquirer
@@ -57,7 +57,7 @@ function getEmployee() {
               type: "input",
               message: "please enter your phone number.",
               default: "510.555.1212",
-              name: "phone"
+              name: "officeNumber"
             },
             {
               type: "list",
@@ -68,21 +68,11 @@ function getEmployee() {
             }
           ])
           .then(val => {
-            const newManager = new Manager(response.name, response.id, response.email, response.role, val.phone);
-            employeeArray.push(newManager);
-
+            employeeArray.push(new Manager(response.name, response.id, response.email, response.role, val.officeNumber));
             if (val.another === "yes") {
               getEmployee();
             } else {
-              var employeeJSON = JSON.stringify(employeeArray);
-              var employeeHTML = render(employeeJSON);
-              console.log(" -------------- ");
-              console.log(employeeJSON);
-              console.log(" -------------- ");
-              console.log(employeeHTML);
-              console.log(" -------------- ");
-
-              fs.writeFile('./output/team.html', employeeHTML, 'utf8', (err) => {
+              fs.writeFile(outputPath, render(employeeArray), (err) => {
                 if (err) throw err;
                 console.log('The file has been saved!');
               });
@@ -97,7 +87,7 @@ function getEmployee() {
               type: "input",
               message: "please enter your gitHub username.",
               default: "StephonAutery",
-              name: "gitHub"
+              name: "github"
             },
             {
               type: "list",
@@ -108,22 +98,11 @@ function getEmployee() {
             }
           ])
           .then(val => {
-            const newEngineer = new Engineer(response.name, response.id, response.email, response.role, val.gitHub);
-            employeeArray.push(newEngineer);
-
-
+            employeeArray.push(new Engineer(response.name, response.id, response.email, response.role, val.github));
             if (val.another === "yes") {
               getEmployee();
             } else {
-              var employeeJSON = JSON.stringify(employeeArray);
-              var employeeHTML = render(employeeJSON);
-              console.log(" -------------- ");
-              console.log(employeeJSON);
-              console.log(" -------------- ");
-              console.log(employeeHTML);
-              console.log(" -------------- ");
-
-              fs.writeFile('./output/team.html', employeeHTML, 'utf8', (err) => {
+              fs.writeFile(outputPath, render(employeeArray), (err) => {
                 if (err) throw err;
                 console.log('The file has been saved!');
               });
@@ -149,22 +128,13 @@ function getEmployee() {
             }
           ])
           .then(val => {
-            const newIntern = new Intern(response.name, response.id, response.email, response.role, val.school);
-            employeeArray.push(newIntern);
-
-
+            employeeArray.push(new Intern(response.name, response.id, response.email, response.role, val.school));
             if (val.another === "yes") {
               getEmployee();
             } else {
               var employeeJSON = JSON.stringify(employeeArray);
-              var employeeHTML = render(employeeJSON);
-              console.log(" -------------- ");
-              console.log(employeeJSON);
-              console.log(" -------------- ");
-              console.log(employeeHTML);
-              console.log(" -------------- ");
-
-              fs.writeFile('./output/team.html', employeeHTML, 'utf8', (err) => {
+              var employeeHTML = render(employeeArray);
+              fs.writeFile(outputPath, render(employeeArray), (err) => {
                 if (err) throw err;
                 console.log('The file has been saved!');
               });
