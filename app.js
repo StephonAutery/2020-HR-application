@@ -11,10 +11,191 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+const employeeArray = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+console.log("please build your team.");
 
+function getEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        message: "What is your Employee's name?",
+        default: "Stephon Autery",
+        name: "name"
+      },
+      {
+        type: "input",
+        message: "What is your Employee's id?",
+        default: "1",
+        name: "id"
+      },
+      {
+        type: "input",
+        message: "What is your Employee's email?",
+        default: "stephon@stephonautery.com",
+        name: "email"
+      },
+      {
+        type: "list",
+        message: "What is this Employee's role?",
+        choices: ["Manager", "Engineer", "Intern"],
+        default: ["Manager"],
+        name: "role"
+      }
+    ])
+    .then(function (response) {
+
+      this.role = response.role
+
+      function getManager() {
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              message: "please enter your phone number.",
+              default: "510.555.1212",
+              name: "phone"
+            },
+            {
+              type: "list",
+              message: "Add another Employee?",
+              choices: ["yes", "no, I'm done."],
+              default: ["yes"],
+              name: "another"
+            }
+          ])
+          .then(val => {
+            const newManager = new Manager(response.name, response.id, response.email, response.role, val.phone);
+            employeeArray.push(newManager);
+
+            if (val.another === "yes") {
+              getEmployee();
+            } else {
+              var employeeJSON = JSON.stringify(employeeArray);
+              var employeeHTML = render(employeeArray);
+              console.log(" -------------- ");
+              console.log(employeeJSON);
+              console.log(" -------------- ");
+              console.log(employeeHTML);
+              console.log(" -------------- ");
+
+              fs.writeFile('./output/team.html', employeeHTML, (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+              });
+            }
+          });
+      }
+
+      function getEngineer() {
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              message: "please enter your gitHub username.",
+              default: "StephonAutery",
+              name: "gitHub"
+            },
+            {
+              type: "list",
+              message: "Add another Employee?",
+              choices: ["yes", "no, I'm done."],
+              default: ["yes"],
+              name: "another"
+            }
+          ])
+          .then(val => {
+            const newEngineer = new Engineer(response.name, response.id, response.email, response.role, val.gitHub);
+            employeeArray.push(newEngineer);
+
+
+            if (val.another === "yes") {
+              getEmployee();
+            } else {
+              var employeeJSON = JSON.stringify(employeeArray);
+              var employeeHTML = render(employeeArray);
+              console.log(" -------------- ");
+              console.log(employeeJSON);
+              console.log(" -------------- ");
+              console.log(employeeHTML);
+              console.log(" -------------- ");
+
+              fs.writeFile('./output/team.html', employeeHTML, (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+              });
+            }
+          });
+      }
+
+      function getIntern() {
+        inquirer
+          .prompt([
+            {
+              type: "input",
+              message: "please enter your alma mater.",
+              default: "NC State",
+              name: "school"
+            },
+            {
+              type: "list",
+              message: "Add another Employee?",
+              choices: ["yes", "no, I'm done."],
+              default: ["yes"],
+              name: "another"
+            }
+          ])
+          .then(val => {
+            const newIntern = new Intern(response.name, response.id, response.email, response.role, val.school);
+            employeeArray.push(newIntern);
+
+
+            if (val.another === "yes") {
+              getEmployee();
+            } else {
+              var employeeJSON = JSON.stringify(employeeArray);
+              var employeeHTML = render(employeeArray);
+              console.log(" -------------- ");
+              console.log(employeeJSON);
+              console.log(" -------------- ");
+              console.log(employeeHTML);
+              console.log(" -------------- ");
+
+              fs.writeFile('./output/team.html', employeeHTML, (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+              });
+            }
+          });
+      }
+
+      switch (response.role) {
+        case "Manager":
+          console.log("manager");
+          getManager();
+          break;
+        case "Engineer":
+          console.log("engineer");
+          getEngineer();
+          break;
+        case "Intern":
+          console.log("intern");
+          getIntern();
+          break;
+      }
+    })
+    .catch(error => {
+      if (error.isTtyError) {
+        console.log("couldn't do it");
+      } else {
+        console.log("it's always something");
+        throw (error);
+      }
+    });
+}
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
@@ -34,3 +215,5 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+getEmployee();
