@@ -47,9 +47,6 @@ function getEmployee() {
       }
     ])
     .then(function (response) {
-
-      // this.role = response.role
-
       function getManager() {
         inquirer
           .prompt([
@@ -68,7 +65,7 @@ function getEmployee() {
             }
           ])
           .then(val => {
-            employeeArray.push(new Manager(response.name, response.id, response.email, response.role, val.officeNumber));
+            employeeArray.push(new Manager(response.name, response.id, response.email, val.officeNumber));
             if (val.another === "yes") {
               getEmployee();
             } else {
@@ -98,7 +95,7 @@ function getEmployee() {
             }
           ])
           .then(val => {
-            employeeArray.push(new Engineer(response.name, response.id, response.email, response.role, val.github));
+            employeeArray.push(new Engineer(response.name, response.id, response.email, val.github));
             if (val.another === "yes") {
               getEmployee();
             } else {
@@ -128,12 +125,10 @@ function getEmployee() {
             }
           ])
           .then(val => {
-            employeeArray.push(new Intern(response.name, response.id, response.email, response.role, val.school));
+            employeeArray.push(new Intern(response.name, response.id, response.email, val.school));
             if (val.another === "yes") {
               getEmployee();
             } else {
-              var employeeJSON = JSON.stringify(employeeArray);
-              var employeeHTML = render(employeeArray);
               fs.writeFile(outputPath, render(employeeArray), (err) => {
                 if (err) throw err;
                 console.log('The file has been saved!');
